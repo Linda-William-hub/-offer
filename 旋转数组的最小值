@@ -1,0 +1,25 @@
+/*
+题意:
+  把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。
+  输入一个非递减排序的数组的一个旋转，输出旋转数组的最小元素。
+  NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。
+*/
+
+class Solution {
+public:
+    int minNumberInRotateArray(vector<int> rotateArray) 
+    {
+        int i; 
+        int n = rotateArray.size();
+        if (n == 0)
+          return 0;		
+        //从左往右按顺序查找
+        //断层满足  不比右边的值小   右边的值即为最小值 
+        for (i = 0; i < n - 1; i++)
+        {
+          if (rotateArray[i] > rotateArray[i + 1]) 
+            return rotateArray[i + 1];
+        }		//否则一直都是小于等于的情况   
+        return rotateArray[0];	//一条水平线 或者单调递增 
+    }
+};
