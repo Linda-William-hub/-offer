@@ -1,0 +1,25 @@
+//跟跳台阶原理一样
+//只是它可以停在任意位置
+//分类方法: 在中间位置第 i 阶有p[i], 后面的一步达成
+class Solution {
+public:
+    int jumpFloorII(int number) {
+        int i;
+        int j;
+        int * p = new int[number + 1];
+
+        if (0 >= number)
+            return 0;
+        if (1 == number)
+            return 1;        
+        p[0] = 1;
+        p[1] = 1;
+        p[2] = p[0] + p[1];
+        for (i = 3; i <= number; i++)   //画图仔细分析数量关系会发现 是前一个的两倍
+        {
+            p[i] = 2 * p[i - 1];
+        }
+
+        return p[number];
+    }
+};
