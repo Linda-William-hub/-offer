@@ -1,0 +1,35 @@
+//画图好理解一点
+//需要利用最后一个空指针位置保存前驱结点的地址，所以需要一个尾指针
+//也需要一个指针保存后继地址
+
+/*
+struct ListNode {
+	int val;
+	struct ListNode *next;
+	ListNode(int x) :
+			val(x), next(NULL) {
+	}
+};*/
+class Solution {
+public:
+    ListNode* ReverseList(ListNode* pHead) 
+    {
+        ListNode * p = pHead;
+        ListNode * q = pHead;
+        ListNode * t = pHead;
+        if (pHead == NULL)
+          return pHead;
+        while (q->next != NULL)
+        {
+          q = q->next;
+        }	
+        while (p != q)
+        {
+          t = p->next;
+          p->next = q->next;
+          q->next = p; 
+          p = t;			
+        }
+        return p;
+    }
+};
