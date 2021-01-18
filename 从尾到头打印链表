@@ -1,0 +1,41 @@
+/*
+没有考虑用递归，递归调用深度比较大
+
+数组 + 栈
+把链表值放到栈中，再把栈中的数据放到数组
+*/
+
+/**
+*  struct ListNode {
+*        int val;
+*        struct ListNode *next;
+*        ListNode(int x) :
+*              val(x), next(NULL) {
+*        }
+*  };
+*/
+
+class Solution {
+public:
+    vector<int> printListFromTailToHead(ListNode* head) {
+        int i;
+        int m;
+        vector<int> result;
+        stack<int> a;
+        struct ListNode * p = head;	
+
+        while (p != NULL)
+        {
+            a.push(p->val);
+            p = p->next;
+        }
+
+        m = a.size();
+        for (i = 0; i < m; i++)
+        {
+            result.push_back(a.top());
+            a.pop();
+        }
+        return result;
+    }
+};
