@@ -1,0 +1,36 @@
+/*
+  先指针p移动到第k个位置
+  指针q指向头部
+  然后两个指针一起移动
+  指针p比指针q肯定要先到达链尾，所以只需要判断指针p
+/*
+struct ListNode {
+	int val;
+	struct ListNode *next;
+	ListNode(int x) :
+			val(x), next(NULL) {
+	}
+};*/
+class Solution {
+public:
+    ListNode* FindKthToTail(ListNode* pListHead, unsigned int k) 
+    {
+        int i;
+        ListNode * p = pListHead;
+        ListNode * q = pListHead;
+        if (pListHead == NULL || k == 0)
+          return NULL;
+        for (i = 1; i < k; i++)
+        {
+          q = q->next;
+          if (q == NULL)  //无法找到 
+            return NULL; 
+        }
+        while (q->next != NULL)
+        {
+          p = p->next;
+          q = q->next;
+        }
+        return p;
+    }
+};
