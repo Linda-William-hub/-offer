@@ -1,0 +1,33 @@
+class Solution {
+public:
+    void reOrderArray(vector<int> &array) {
+        int n = array.size();
+		int i = n - 1;  
+		int j = n - 1;
+		int t; 
+		int temp; 
+		// i指向第一个偶数
+		//j 指向第一个奇数 
+        if (n <= 1)
+           return;
+		while (i >= 0)
+		{
+			while (i >= 0 && array[i] & 1 == 1)
+				i--;
+			if (i == -1)
+				break;							
+			//把当前 i 指向的位置  冒到  j指向的位置 
+      //次序不能变，只能进行移位
+			temp = array[i];
+			for (t = i; t < j; t++)
+			{
+				array[t] = array[t + 1];
+			}
+			array[t] = temp;
+			j--;
+			i--;
+		}
+
+		return;
+    }
+};
