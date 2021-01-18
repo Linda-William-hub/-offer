@@ -1,0 +1,31 @@
+//整数的二进制表示  1的个数
+//注意负数，补码表示，右移时，是否是用符号位填充
+class Solution {
+public:
+     int  NumberOf1(int n) {
+            //int  大小为 4 个字节
+            //所以是 32 位表示的整数
+            int i;
+            int count = 0;
+            int temp;
+            if (n >= 0)
+            {
+                while (n > 0)  //整数这种可以没有 1 时，提前结束  
+                {
+                    temp = n & 1;
+                    count += temp;
+                    n >>= 1;
+                }			
+            }
+            else  //负数的处理情况   因为负数符号位为 1， 不会随着移位而移动，移动时用符号位进行填充  所以用while会发生死循环
+            {
+                for (i = 0; i < 32; i++)
+                 {
+                    temp = n & 1;
+                    count += temp;
+                    n >>= 1;
+                 }	
+            }
+            return count; 
+     }
+};
