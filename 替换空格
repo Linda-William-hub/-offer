@@ -1,0 +1,39 @@
+/*
+在原字符串进行修改, 假设字符串的空间足够大
+1、先计算替换完所需要的长度
+2、从后往前copy并替换
+*/
+class Solution {
+public:
+	void replaceSpace(char *str,int length) {
+        int j;
+        int i;
+        int len;
+        int cnt = 0;  //记录空格的个数 
+
+        i = 0;
+        while (str[i] != '\0')   //计算有多少个空格，用于计算新的空间大小
+        {
+            if (str[i] == ' ')
+                cnt++;
+            i++;
+        }
+
+        len = length + 2 * cnt;  //len 新的空间大小
+        for (i = len - 1, j = length - 1; j >= 0; j--)  //从后往前copy
+        {
+            if (str[j] == ' ')
+            {
+                str[i] = '0'; i--;
+                str[i] = '2'; i--;
+                str[i] = '%'; i--;
+            }
+            else
+            {
+                str[i] = str[j];
+                i--; 
+            }
+        } 
+        return;
+	}
+};
