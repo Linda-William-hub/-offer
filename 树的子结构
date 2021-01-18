@@ -1,0 +1,87 @@
+//输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构）
+//代码很多，表达意思是简单的
+
+/*
+struct TreeNode {
+	int val;
+	struct TreeNode *left;
+	struct TreeNode *right;
+	TreeNode(int x) :
+			val(x), left(NULL), right(NULL) {
+	}
+};
+*/
+class Solution {
+public:
+  //找出所有出现过val的地方 
+    void FindTarget(TreeNode * pRoot, int val, vector<TreeNode *> &nodes)
+	{
+		//用非递归实现 
+		queue<TreeNode *> s;
+		TreeNode * temp;
+		s.push(pRoot);
+		//层序遍历就可以了  因为只是找到所有值为val的结点 
+		while (!s.empty())
+		{
+			temp = s.front();
+			s.pop();
+			if (temp->val == val)
+			{
+				nodes.push_back(temp);
+			}
+      //左右孩子也要放进去
+			if (temp->left != NULL)
+				s.push(temp->left);
+			if (temp->right != NULL)
+				s.push(temp->right);
+		}
+		return;
+	}
+	
+  //结构和值一起判断
+	bool Comparison(TreeNode * p1, TreeNode * p2)  //这样比较的好处是  不用额外内存  能够提前结束   不好的地方就是判断特别多 
+	{
+    //判断结点
+		if (p1->val != p2->val)
+			return false;
+    //判断左孩子
+		if (p1->left != NULL && p2->left != NULL)  //两个都不为空时，需要值相等
+		{
+			if (Comparison(p1->left, p2->left) == false)
+				return false;
+		}
+		else if (p1->left == NULL && p2->left != NULL) //我没有你有  就是错误  我有你没有，是可以的
+		{
+			return false;
+		}
+    //判断右孩子
+		if (p1->right != NULL && p2->right != NULL)
+		{
+			if (Comparison(p1->right, p2->right) == false)
+				return false;
+		}
+		else if (p1->right == NULL && p2->right != NULL)
+		{
+			return false;
+		}
+		return true; 
+	}
+	
+    bool HasSubtree(TreeNode* pRoot1, TreeNode* pRoot2)
+    {
+        int i;
+        vector<TreeNode *> nodes;
+        if (pRoot1 == NULL || pRoot2 == NULL)
+          return false;
+        FindTarget(pRoot1, pRoot2->val, nodes);
+        if (nodes.size() == 0)
+          return false;
+        //比较两棵子树   所找到位置的先序遍历和后序遍历是否相同  即可
+        for (i = 0; i < nodes.size(); i++)
+        {
+          if (Comparison(nodes[i], pRoot2))
+            return true;
+        } 
+        return false;
+    }
+};
