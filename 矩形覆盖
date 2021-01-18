@@ -1,0 +1,13 @@
+//递归就是好用
+//这个比较特殊，因为最多只有三种可能
+//分割的方法也很明显
+class Solution {
+public:
+    int rectCover(int number) 
+    {
+        if (number == 2 || number == 1 || number == 0)
+          return number; 
+        //不一定有 n - 2的方案
+        return rectCover(number - 2) + rectCover(number - 1);   //当前已有两种分发法 
+    }
+};
