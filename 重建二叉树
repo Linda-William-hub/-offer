@@ -1,0 +1,48 @@
+//根据先序遍历和中序遍历构建二叉树
+/*
+递归完成
+  根据先序找出根结点，然后对中序进行分左右子树，进行递归
+  跟树的建立过程是一样的
+  需要维持区间边界
+*/
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode * BuildTree(vector<int> &pre, vector<int> &vin, int preL, int preR, int vinL, int vinR)
+    {
+        if (preL > preR)   //这个是最后一个 
+            return NULL;
+  	
+        if (preL == preR)
+            return new TreeNode(pre[preL]);
+
+        TreeNode * pArr = new TreeNode(pre[preL]);  //父结点
+        int index;
+        for (index = vinL; index <= vinR; index++)
+        {
+            if (vin[index] == pre[preL])
+                break;	
+        }
+        int len = index - vinL;
+        //左孩子
+        pArr->left = BuildTree(pre, vin, preL + 1, preL + len, vinL, index - 1);
+        //右孩子
+        pArr->right = BuildTree(pre, vin, preL + len + 1, preR, index + 1, vinR);
+
+        return pArr;
+    }
+    
+    TreeNode* reConstructBinaryTree(vector<int> pre,vector<int> vin) {
+        if (pre.size() == 0 || pre.size() != vin.size())
+            return 0;
+        return BuildTree(pre, vin, 0, pre.size() - 1, 0, vin.size() - 1); 
+    }
+};
