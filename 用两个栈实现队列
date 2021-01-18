@@ -1,0 +1,36 @@
+class Solution
+{
+    stack<int> stack1;
+    stack<int> stack2;
+public:
+    void push(int node)   //队列进
+    {
+        //stack2保存目标数据
+        //stack1作为临时容器
+        //先让stack2数据放在stack1  进元素  然后再放回到stack1
+        //因为空间没有限制  所以不考虑为满的状态 
+        while (!stack2.empty()) 
+        {
+          stack1.push(stack2.top());
+          stack2.pop();
+        }
+        stack1.push(node);
+        while (!stack1.empty())
+        {
+          stack2.push(stack1.top());
+          stack1.pop();
+        }
+        return;
+    }
+
+    int pop()   //队列出
+    {
+        //不为空的时候才能pop() 
+        if (stack2.empty(){
+          return -1;	
+        } 
+        int temp = stack2.top();
+        stack2.pop();
+        return temp;
+    }
+};
