@@ -1,0 +1,39 @@
+//细节比较多
+//代码不难
+
+class Solution {
+public:
+    double Power(double base, int exponent) 
+    {
+        double re = base; 
+        int n = exponent;
+        if (n == 0 || base == 0 || base == 1)
+        {
+          if (base == 0)
+            return 0;
+          else
+            return 1;
+        }
+        if (n == 1)
+          return n;
+        if (n < 0)  //化为正的情况
+        {
+          re = 1.0 / base;
+          base = 1.0 / base;
+          n = -n;
+        }	
+        int temp = n & 1; //判断奇偶性
+        //n >= 2
+        //右移一位  相当于除以 2 
+        while (n > 1) //因为多算了一次  最高位的 1 不进行翻倍 
+        {
+          re *= re;
+          n >>= 1;
+        }
+        if (temp == 1)  //乘方 就是多少个base相乘 
+        {
+          re *= base;	
+        } 
+        return re; 
+    }
+};
