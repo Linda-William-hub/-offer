@@ -1,0 +1,21 @@
+// F(n) = F(n - 1) + F(n - 2)
+
+class Solution {
+public:
+    int Fibonacci(int n) 
+    {
+        int i;
+        if (n <= 1)
+          return n;
+
+        vector<int> arr(n + 1, 0);  //如果你对你所需的空间无法准确确定，那你就是掌握不牢固
+        //后面的计算，利用了前面的结果
+        arr[0] = 0;
+        arr[1] = 1; 
+        for (i = 2; i <= n; i++)
+        {
+          arr[i] = arr[i - 1] + arr[i - 2];
+        } 
+        return arr[n];
+    }
+};
